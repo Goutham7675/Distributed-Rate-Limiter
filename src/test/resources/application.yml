@@ -1,0 +1,6 @@
+logging:
+  level:
+    root: WARN
+    com.example.distributedratelimiter: INFO
+  server:
+    port: 7675
