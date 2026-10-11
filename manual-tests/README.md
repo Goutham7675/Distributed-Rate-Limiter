@@ -1,8 +1,8 @@
 # Manual Test Files
 
-这套脚本默认请求 `http://localhost:8080`，并假设当前运行中的应用使用的是 Redis `DB 15`。
+These scripts default to sending requests to `http://localhost:7675` and assume that the currently running application uses Redis **DB 15**.
 
-建议按下面顺序执行：
+It is recommended to execute the scripts in the following order:
 
 1. `./manual-tests/00-reset-db15.sh`
 2. `./manual-tests/01-health.sh`
@@ -20,15 +20,17 @@
 14. `./manual-tests/13-consume-endpoint-sliding-window-2.sh`
 15. `./manual-tests/14-consume-endpoint-sliding-window-3-blocked.sh`
 
-预期结果：
+## Expected Results
 
-- 健康检查返回 `status=UP`
-- Token Bucket: 前两次消费通过，第三次被限流
-- Fixed Window: 第一次通过，第二次被限流
-- Sliding Window: 前两次通过，第三次被限流
+- **Health Check:** Returns `status=UP`.
+- **Token Bucket:** The first two consumption requests succeed, while the third is rate-limited.
+- **Fixed Window:** The first request succeeds, while the second is rate-limited.
+- **Sliding Window:** The first two requests succeed, while the third is rate-limited.
 
-如果你想换地址，可以这样执行：
+## Changing the Base URL
+
+To use a different application URL, set the `BASE_URL` environment variable when executing a script:
 
 ```bash
-BASE_URL=http://localhost:8080 ./manual-tests/01-health.sh
+BASE_URL=http://localhost:7675 ./manual-tests/01-health.sh
 ```
